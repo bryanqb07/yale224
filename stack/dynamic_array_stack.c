@@ -8,7 +8,6 @@
 struct stack{
   int count;
   int length;
-  int startIdx;
   int *values;
 };
 
@@ -43,7 +42,8 @@ void StackPush(Stack *s, int value){
 
 
 int StackPop(Stack *s){
-  int retVal = s->values[s->startIdx++];
+  int retVal = s->values[s->count - 1];
+  s->count--;
   return retVal;
 }
 
@@ -55,7 +55,7 @@ void StackDestroy(Stack *s)
 
 void StackPrint(Stack *s){
   int i = s->count - 1;
-  while(i >= s->startIdx) printf("%d ", s->values[i--]);
+  while(i >= 0) printf("%d ", s->values[i--]);
   
   putchar('\n');
 }

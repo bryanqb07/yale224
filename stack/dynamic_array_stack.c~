@@ -29,7 +29,7 @@ StackCreate(void){
 
 void StackGrow(Stack *s)
 {
-  printf("Doubling stack size...\n");
+  //  printf("Doubling stack size...\n");
   s->values = (int *) realloc(s->values, s->length * GROWTH_FACTOR * sizeof(int));
 
   s->length *= GROWTH_FACTOR;

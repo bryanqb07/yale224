@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+struct node{
+  int value;
+  struct node *left;
+  struct node *right;
+};
+
+typedef struct node Node;
+
+Node *
+GetNewNode(int value)
+{
+  Node *e = malloc(sizeof(Node));
+  assert(e);
+  e->value = value;
+  e->left = e->right = NULL;
+  return e;
+}
+
+
+Node *
+InsertNode(Node *root, int value)
+{
+  if(root == NULL){ //empty tree
+    root = GetNewNode(value);
+    return root;
+  }
+  else if (value <= root->value){
+    root->left = InsertNode(root->left, value);
+  }
+  else{
+    root->right = InsertNode(root->right, value);
+  }
+  return root;
+}
+
+int SearchTree(Node *root, int value)
+{
+  if(root == NULL){
+    return 0;
+  }
+  else if(root->value == value){
+    return 1;
+  }
+  else if(value <= root->value){
+    return SearchTree(root->left, value);
+  }
+  else{
+    return SearchTree(root->right, value);
+  }
+}
+
+int main(int argc, char**argv)
+{
+  Node *root = NULL;
+  
+  root = InsertNode(root, 15);
+  root = InsertNode(root, 10);
+  root = InsertNode(root, 20);
+  root = InsertNode(root, 25);
+  root = InsertNode(root, 8);
+  root = InsertNode(root, 12);
+
+  printf("Type number to be searched: ");
+
+  int target = 10;
+
+  if(SearchTree(root,target) == 1) printf("Found %d\n", target);
+  else printf("Not found\n");
+
+  return 0;
+}
